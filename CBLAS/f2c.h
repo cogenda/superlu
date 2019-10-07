@@ -14,6 +14,16 @@ typedef long int integer; /* 64 on 64-bit machine */
 typedef long int logical;
 #endif
 
+#if defined(__LAPACK_PRECISION_QUAD)
+#	include <quadmath.h>
+#	define M(A) A##q
+	typedef __float128 quadreal;
+	typedef struct { quadreal r, i; } quadcomplex;
+#	define scalar __float128
+#	define scalarcomplex quadcomplex
+#	define dscalar __float128
+#endif
+
 typedef int integer;
 typedef int logical;
 
@@ -37,11 +47,21 @@ typedef char integer1;
 #endif
 
 #define abs(x) ((x) >= 0 ? (x) : -(x))
-#define dabs(x) (doublereal)abs(x)
-#define min(a,b) ((a) <= (b) ? (a) : (b))
-#define max(a,b) ((a) >= (b) ? (a) : (b))
-#define dmin(a,b) (doublereal)min(a,b)
-#define dmax(a,b) (doublereal)max(a,b)
+#define dabs(x) (abs(x))
+#define f2cmin(a,b) ((a) <= (b) ? (a) : (b))
+#define f2cmax(a,b) ((a) >= (b) ? (a) : (b))
+#define dmin(a,b) (f2cmin(a,b))
+#define dmax(a,b) (f2cmax(a,b))
+
+#if defined(__LAPACK_PRECISION_QUAD)
+#	define f__cabs(r,i) qf__cabs((r),(i))
+	extern scalar qf__cabs(scalar r, scalar i);
+#	define pow_di(B,E) qpow_ui((B),*(E))
+	extern dscalar qpow_ui(scalar *_x, integer n);
+#	define myf2cmaxloc_(w,s,e,n) qf2cmaxloc_((w),*(s),*(e),n)
+	extern integer qf2cmaxloc_(scalar *w, integer s, integer e, integer *n);        
+#endif
+
 
 #define VOID void
 

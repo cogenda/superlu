@@ -110,7 +110,7 @@
              On entry, LDA specifies the first dimension of A as declared 
   
              in the calling (sub) program. LDA must be at least   
-             max( 1, n ).   
+             f2cmax( 1, n ).   
              Unchanged on exit.   
 
 
@@ -143,7 +143,7 @@
 	info = 5;
     } else if (*incy == 0) {
 	info = 7;
-    } else if (*lda < max(1,*n)) {
+    } else if (*lda < f2cmax(1,*n)) {
 	info = 9;
     }
     if (info != 0) {

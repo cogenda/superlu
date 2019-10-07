@@ -34,6 +34,7 @@ typedef enum {
 typedef enum {
     SLU_S,     /* single */
     SLU_D,     /* double */
+    SLU_Q,     /* float128 */
     SLU_C,     /* single complex */
     SLU_Z      /* double complex */
 } Dtype_t;

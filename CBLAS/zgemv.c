@@ -80,7 +80,7 @@
              On entry, LDA specifies the first dimension of A as declared 
   
              in the calling (sub) program. LDA must be at least   
-             max( 1, m ).   
+             f2cmax( 1, m ).   
              Unchanged on exit.   
 
     X      - COMPLEX*16       array of DIMENSION at least   
@@ -142,7 +142,7 @@
 	info = 2;
     } else if (*n < 0) {
 	info = 3;
-    } else if (*lda < max(1,*m)) {
+    } else if (*lda < f2cmax(1,*m)) {
 	info = 6;
     } else if (*incx == 0) {
 	info = 8;

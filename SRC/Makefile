@@ -33,7 +33,7 @@ ALLAUX 	= superlu_timer.o util.o memory.o get_perm_c.o mmd.o \
 	  sp_coletree.o sp_preorder.o sp_ienv.o relax_snode.o \
 	  heap_relax_snode.o colamd.o \
 	  ilu_relax_snode.o ilu_heap_relax_snode.o mark_relax.o \
-	  mc64ad.o qselect.o input_error.o dmach.o smach.o
+	  mc64ad.o qselect.o input_error.o qmach.o dmach.o smach.o
 
 SLUSRC = \
 	sgssv.o sgssvx.o \
@@ -63,6 +63,18 @@ DLUSRC = \
 	ilu_dpivotL.o ddiagonal.o dlacon2.o
         ## dgstrsL.o dgstrsU.o
 
+QLUSRC = \
+	qgssv.o qgssvx.o \
+	qsp_blas2.o qsp_blas3.o qgscon.o \
+	qlangs.o qgsequ.o qlaqgs.o qpivotgrowth.o  \
+	qgsrfs.o qgstrf.o qgstrs.o qcopy_to_ucol.o \
+	qsnode_dfs.o qsnode_bmod.o qpanel_dfs.o qpanel_bmod.o \
+	qcolumn_dfs.o qcolumn_bmod.o qpivotL.o qpruneL.o \
+	qmemory.o qutil.o qmyblas2.o qgsisx.o qgsitrf.o qldperm.o \
+	ilu_qdrop_row.o ilu_qsnode_dfs.o \
+	ilu_qcolumn_dfs.o ilu_qpanel_dfs.o ilu_qcopy_to_ucol.o \
+	ilu_qpivotL.o qdiagonal.o qlacon2.o
+        
 CLUSRC = \
 	scomplex.o cgssv.o cgssvx.o csp_blas2.o csp_blas3.o cgscon.o \
 	clangs.o cgsequ.o claqgs.o cpivotgrowth.o  \
@@ -91,7 +103,7 @@ ZLUSRC = \
 	ilu_zcolumn_dfs.o ilu_zpanel_dfs.o ilu_zcopy_to_ucol.o \
 	ilu_zpivotL.o zdiagonal.o zlacon2.o dzsum1.o izmax1.o
 
-all:    single double complex complex16
+all:    single double quad complex complex16
 
 single: $(SLUSRC) $(ALLAUX)
 	$(ARCH) $(ARCHFLAGS) $(SUPERLULIB) $(SLUSRC) $(ALLAUX)
@@ -100,6 +112,10 @@ single: $(SLUSRC) $(ALLAUX)
 double: $(DLUSRC) $(ALLAUX)
 	$(ARCH) $(ARCHFLAGS) $(SUPERLULIB) $(DLUSRC) $(ALLAUX)
 	$(RANLIB) $(SUPERLULIB)
+
+quad:   $(QLUSRC) $(ALLAUX)
+	$(ARCH) $(ARCHFLAGS) $(SUPERLULIB) $(QLUSRC) $(ALLAUX)
+	$(RANLIB) $(SUPERLULIB)	
 
 complex: $(CLUSRC) $(ALLAUX)
 	$(ARCH) $(ARCHFLAGS) $(SUPERLULIB) $(CLUSRC) $(ALLAUX)

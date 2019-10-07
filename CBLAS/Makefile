@@ -52,6 +52,10 @@ DBLAS1 = idamax.o dasum.o daxpy.o dcopy.o ddot.o dnrm2.o \
 	 drot.o dscal.o dswap.o
 DBLAS2 = dgemv.o dsymv.o dtrsv.o dger.o dsyr2.o
 
+QBLAS1 = iqamax.o qasum.o qaxpy.o qcopy.o qdot.o qnrm2.o \
+	 qrot.o qscal.o qswap.o
+QBLAS2 = qgemv.o qsymv.o qtrsv.o qger.o qsyr2.o
+
 CBLAS1 = icamax.o scasum.o caxpy.o ccopy.o scnrm2.o \
 	 cscal.o cswap.o cdotc.o
 CBLAS2 = cgemv.o chemv.o ctrsv.o cgerc.o cher2.o
@@ -61,7 +65,7 @@ ZBLAS1 = izamax.o dzasum.o zaxpy.o zcopy.o dznrm2.o \
 ZBLAS2 = zgemv.o zhemv.o ztrsv.o zgerc.o zher2.o
 
 
-all: single double complex complex16
+all: single double quad complex complex16
 
 single: $(SBLAS1) $(SBLAS2) $(SBLAS3)
 	$(ARCH) $(ARCHFLAGS) $(BLASLIB) $(SBLAS1) $(ALLBLAS) $(SBLAS2) $(SBLAS3)
@@ -69,6 +73,10 @@ single: $(SBLAS1) $(SBLAS2) $(SBLAS3)
 
 double: $(DBLAS1) $(DBLAS2) $(DBLAS3)
 	$(ARCH) $(ARCHFLAGS) $(BLASLIB) $(DBLAS1) $(ALLBLAS) $(DBLAS2) $(DBLAS3)
+	$(RANLIB) $(BLASLIB)
+
+quad: $(QBLAS1) $(QBLAS2) $(QBLAS3)
+	$(ARCH) $(ARCHFLAGS) $(BLASLIB) $(QBLAS1) $(ALLBLAS) $(QBLAS2) $(QBLAS3)
 	$(RANLIB) $(BLASLIB)
 
 complex: $(CBLAS1) $(CBLAS2) $(CBLAS3)

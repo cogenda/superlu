@@ -19,12 +19,48 @@ at the top-level directory.
  * </pre>
  */
 
-#include "slu_ddefs.h"
+#define SUPERLU_MAX(x, y) 	( (x) > (y) ? (x) : (y) )
+#define SUPERLU_MIN(x, y) 	( (x) < (y) ? (x) : (y) )
+
+#include <quadmath.h>
+typedef __float128 quadreal;
+
+quadreal  qqselect(int n, quadreal A[], int k)
+{
+    int i, j, p;
+    double val;
+
+    k = SUPERLU_MAX(k, 0);
+    k = SUPERLU_MIN(k, n - 1);
+    while (n > 1)
+    {
+	i = 0; j = n-1;
+	p = j; val = A[p];
+	while (i < j)
+	{
+	    for (; A[i] >= val && i < p; i++);
+	    if (A[i] < val) { A[p] = A[i]; p = i; }
+	    for (; A[j] <= val && j > p; j--);
+	    if (A[j] > val) { A[p] = A[j]; p = j; }
+	}
+	A[p] = val;
+	if (p == k) return val;
+	else if (p > k) n = p;
+	else
+	{
+	    p++;
+	    n -= p; A += p; k -= p;
+	}
+    }
+
+    return A[0];
+}
+
 
 double dqselect(int n, double A[], int k)
 {
-    register int i, j, p;
-    register double val;
+    int i, j, p;
+    double val;
 
     k = SUPERLU_MAX(k, 0);
     k = SUPERLU_MIN(k, n - 1);
@@ -54,8 +90,8 @@ double dqselect(int n, double A[], int k)
 
 float sqselect(int n, float A[], int k)
 {
-    register int i, j, p;
-    register float val;
+    int i, j, p;
+    float val;
 
     k = SUPERLU_MAX(k, 0);
     k = SUPERLU_MIN(k, n - 1);

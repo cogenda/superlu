@@ -99,7 +99,7 @@
              On entry, LDA specifies the first dimension of A as declared 
   
              in the calling (sub) program. LDA must be at least   
-             max( 1, n ).   
+             f2cmax( 1, n ).   
              Unchanged on exit.   
 
     X      - DOUBLE PRECISION array of dimension at least   
@@ -144,7 +144,7 @@
 	info = 3;
     } else if (*n < 0) {
 	info = 4;
-    } else if (*lda < max(1,*n)) {
+    } else if (*lda < f2cmax(1,*n)) {
 	info = 6;
     } else if (*incx == 0) {
 	info = 8;

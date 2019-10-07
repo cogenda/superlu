@@ -129,6 +129,53 @@ if(enable_double)
   set_source_files_properties(dmach.c PROPERTIES COMPILE_FLAGS -O0)
 endif()
 
+
+if(enable_quad)
+  list(APPEND headers
+    slu_qdefs.h
+  )
+
+  list(APPEND sources
+    qlacon2.c
+    qmach.c
+    qgssv.c
+    qgssvx.c
+    qsp_blas2.c
+    qsp_blas3.c
+    qgscon.c
+    qlangs.c
+    qgsequ.c
+    qlaqgs.c
+    qpivotgrowth.c
+    qgsrfs.c
+    qgstrf.c
+    qgstrs.c
+    qcopy_to_ucol.c
+    qsnode_dfs.c
+    qsnode_bmod.c
+    qpanel_dfs.c
+    qpanel_bmod.c
+    qcolumn_dfs.c
+    qcolumn_bmod.c
+    qpivotL.c
+    qpruneL.c
+    qmemory.c
+    qutil.c
+    qmyblas2.c
+    qgsisx.c
+    qgsitrf.c
+    qldperm.c
+    ilu_qdrop_row.c
+    ilu_qsnode_dfs.c
+    ilu_qcolumn_dfs.c
+    ilu_qpanel_dfs.c
+    ilu_qcopy_to_ucol.c
+    ilu_qpivotL.c
+    qdiagonal.c
+  )
+  set_source_files_properties(qmach.c PROPERTIES COMPILE_FLAGS -O0)
+endif()
+
 if(enable_complex)
   list(APPEND headers
     slu_cdefs.h
