@@ -20,12 +20,14 @@ at the top-level directory.
 #ifndef __SUPERLU_ENUM_CONSTS /* allow multiple inclusions */
 #define __SUPERLU_ENUM_CONSTS
 
+#define LargeDiag_AWPM LargeDiag_HWPM  /* backward compatibility */
+
 /***********************************************************************
  * Enumerate types
  ***********************************************************************/
 typedef enum {NO, YES}                                          yes_no_t;
 typedef enum {DOFACT, SamePattern, SamePattern_SameRowPerm, FACTORED} fact_t;
-typedef enum {NOROWPERM, LargeDiag, MY_PERMR}                   rowperm_t;
+typedef enum {NOROWPERM, LargeDiag_MC64, LargeDiag_HWPM, MY_PERMR} rowperm_t;
 typedef enum {NATURAL, MMD_ATA, MMD_AT_PLUS_A, COLAMD,
 	      METIS_AT_PLUS_A, PARMETIS, ZOLTAN, MY_PERMC}      colperm_t;
 typedef enum {NOTRANS, TRANS, CONJ}                             trans_t;
@@ -68,6 +70,9 @@ typedef enum {
     FACT,    /* perform LU factorization */
     COMM,    /* communication for factorization */
     SOL_COMM,/* communication for solve */
+    SOL_GEMM,/* gemm for solve */
+    SOL_TRSM,/* trsm for solve */
+    SOL_TOT,	/* LU-solve time*/
     RCOND,   /* estimate reciprocal condition number */
     SOLVE,   /* forward and back solves */
     REFINE,  /* perform iterative refinement */
@@ -76,6 +81,5 @@ typedef enum {
     FERR,    /* estimate error bounds after iterative refinement */
     NPHASES  /* total number of phases */
 } PhaseType;
-
 
 #endif /* __SUPERLU_ENUM_CONSTS */

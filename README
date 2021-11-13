@@ -1,4 +1,4 @@
-		SuperLU (Version 5.2.x)
+		SuperLU (Version 5.3.x)
 		=======================
 
 SuperLU contains a set of subroutines to solve a sparse linear system 
@@ -128,8 +128,14 @@ are described below.
 
      or with more options, e.g.,
         cmake .. \
-	      -DCMAKE_INSTALL_PREFIX=../build
-	      -DCMAKE_INSTALL_INCLUDEDIR=/my/custom/path
+	      -DCMAKE_INSTALL_PREFIX=../build \
+	      -DCMAKE_INSTALL_INCLUDEDIR=/my/custom/path \
+   
+   You should link with a fast BLAS library by specifying the following:
+              -DTPL_BLAS_LIBRARIES=<blas_library_name>
+	      
+   If you do not have a BLAS library, you may use the internal CBLAS/ distribution, which can be very slow:
+              -Denable_internal_blaslib=YES
 
    To actually build, type:
    	make
@@ -162,3 +168,5 @@ are described below.
     July 26,     2015  Version 5.0
     December 3,  2015  Version 5.1
     April 8,     2016  Version 5.2.0
+    May 22,      2016  Version 5.2.1
+    October 17,  2020  Version 5.2.2

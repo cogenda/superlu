@@ -101,3 +101,18 @@ set(sources "")
 
 
 add_library(blas ${sources} ${HEADERS})
+
+include(GNUInstallDirs)
+install(TARGETS blas
+  EXPORT blasTargets
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+)
+
+install(EXPORT blasTargets
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/superlu"
+  )
+export(EXPORT blasTargets
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/blasTargets.cmake"
+  )

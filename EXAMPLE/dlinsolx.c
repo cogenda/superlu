@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     int            *perm_r; /* row permutations from partial pivoting */
     int            *perm_c; /* column permutation vector */
     int            *etree;
-    void           *work;
+    void           *work = NULL;
     int            info, lwork, nrhs, ldx;
     int            i, m, n, nnz;
     double         *rhsb, *rhsx, *xact;
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
 	}
     }
 
-#if 1
+#if 0
     /* Read matrix A from a file in Harwell-Boeing format.*/
     dreadhb(fp, &m, &n, &nnz, &a, &asub, &xa);
 #else

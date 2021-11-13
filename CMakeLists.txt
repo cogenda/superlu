@@ -10,8 +10,8 @@ cmake_minimum_required(VERSION 2.8.12)
 # Project Version	
 project(SuperLU NONE)
 set(VERSION_MAJOR "5")
-set(VERSION_MINOR "2")
-set(VERSION_BugFix "1")
+set(VERSION_MINOR "3")
+set(VERSION_BugFix "0")
 set(PROJECT_VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_BugFix})
 
 ######################################################################
@@ -77,7 +77,7 @@ if (NOT CMAKE_INSTALL_PREFIX)
 endif()
 
 # setup options
-option(enable_blaslib   "Build the CBLAS library" ${enable_blaslib_DEFAULT})
+option(enable_internal_blaslib  "Build the CBLAS library" ${enable_blaslib_DEFAULT})
 option(enable_matlabmex "Build the Matlab mex library" OFF)
 option(enable_tests     "Build tests" ON)
 option(enable_doc       "Build doxygen documentation" OFF)
@@ -101,7 +101,7 @@ set(CMAKE_C_FLAGS_RELEASE "-O3" CACHE STRING "")
 ######################################################################
 #
 #--------------------- BLAS ---------------------
-if(NOT enable_blaslib)
+if(NOT enable_internal_blaslib)
   if (TPL_BLAS_LIBRARIES)
     set(BLAS_FOUND TRUE)
   else()
@@ -130,15 +130,6 @@ else()
       set(BLAS_LIB_EXPORT ${CMAKE_INSTALL_PREFIX}/CBLAS/libblas.a)
   endif()
 endif()
-
-
-######################################################################
-#
-# Include directories
-#
-######################################################################
-
-include_directories(${CMAKE_SOURCE_DIR}/SRC)
 
 ######################################################################
 #
