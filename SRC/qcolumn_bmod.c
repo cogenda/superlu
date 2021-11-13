@@ -35,13 +35,6 @@ at the top-level directory.
 #include <stdlib.h>
 #include "slu_qdefs.h"
 
-/* 
- * Function prototypes 
- */
-void qusolve(int, int, quadreal*, quadreal*);
-void qlsolve(int, int, quadreal*, quadreal*);
-void qmatvec(int, int, int, quadreal*, quadreal*, quadreal*);
-
 
 
 /*! \brief 
@@ -280,8 +273,8 @@ qcolumn_bmod (
     /* Copy the SPA dense into L\U[*,j] */
     new_next = nextlu + xlsub[fsupc+1] - xlsub[fsupc];
     while ( new_next > nzlumax ) {
-	if (mem_error = qLUMemXpand(jcol, nextlu, LUSUP, &nzlumax, Glu))
-	    return (mem_error);
+    mem_error = qLUMemXpand(jcol, nextlu, LUSUP, &nzlumax, Glu);
+	if (mem_error) return (mem_error);
 	lusup = (quadreal *) Glu->lusup;
 	lsub = Glu->lsub;
     }

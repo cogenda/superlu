@@ -34,12 +34,6 @@ at the top-level directory.
 #include "slu_qdefs.h"
 
 
-/* 
- * Function prototypes 
- */
-void qusolve(int, int, quadreal*, quadreal*);
-void qlsolve(int, int, quadreal*, quadreal*);
-void qmatvec(int, int, int, quadreal*, quadreal*, quadreal*);
 
 /*! \brief
  *

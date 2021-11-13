@@ -38,12 +38,6 @@ at the top-level directory.
 #include <stdlib.h>
 #include "slu_qdefs.h"
 
-/* 
- * Function prototypes 
- */
-void qlsolve(int, int, quadreal *, quadreal *);
-void qmatvec(int, int, int, quadreal *, quadreal *, quadreal *);
-extern void qcheck_tempv();
 
 /*! \brief
  *

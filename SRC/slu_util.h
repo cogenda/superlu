@@ -215,7 +215,7 @@ typedef unsigned char Logical;
  * RowPerm (rowperm_t) (only for SuperLU_DIST or ILU)
  *        Specifies whether to permute rows of the original matrix.
  *        = NO: not to permute the rows
- *        = LargeDiag: make the diagonal large relative to the off-diagonal
+ *        = LargeDiag_MC64: make the diagonal large relative to the off-diagonal
  *        = MY_PERMR: use the permutation given by the user
  *
  * ILU_DropRule (int)

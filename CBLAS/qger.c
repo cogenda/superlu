@@ -184,7 +184,7 @@
 	info = 9;
     }
     if (info != 0) {
-	xerbla_("DGER  ", &info);
+	xerbla_("QGER  ", &info);
 	return 0;
     }
 

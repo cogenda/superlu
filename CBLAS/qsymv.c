@@ -207,13 +207,13 @@
 	info = 10;
     }
     if (info != 0) {
-	xerbla_("DSYMV ", &info);
+	xerbla_("QSYMV ", &info);
 	return 0;
     }
 
 /*     Quick return if possible. */
 
-    if (*n == 0 || *alpha == 0. && *beta == 1.) {
+    if (*n == 0 || (*alpha == 0. && *beta == 1.) ) {
 	return 0;
     }
 
