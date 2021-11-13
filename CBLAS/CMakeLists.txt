@@ -79,4 +79,25 @@ set(sources "")
     )
 #endif()
 
+#if (enable_quad)
+    list(APPEND sources
+      iqamax.c
+      qasum.c
+      qaxpy.c
+      qcopy.c
+      qdot.c
+      qnrm2.c
+      qrot.c
+      qscal.c
+      qswap.c
+      qgemv.c
+      qsymv.c
+      qtrsv.c
+      qger.c
+      qsyr2.c
+    )
+#endif()
+
+
+
 add_library(blas ${sources} ${HEADERS})
