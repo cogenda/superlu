@@ -28,7 +28,7 @@ at the top-level directory.
  * =======
  *
  * QGSSV solves the system of linear equations A*X=B, using the
- * LU factorization from SGSTRF. It performs the following steps:
+ * LU factorization from QGSTRF. It performs the following steps:
  *
  *   1. If A is stored column-wise (A->Stype = SLU_NC):
  *
@@ -162,18 +162,21 @@ qgssv(superlu_options_t *options, SuperMatrix *A, int *perm_c, int *perm_r,
     /* Test the input parameters ... */
     *info = 0;
     Bstore = B->Store;
-    if ( options->Fact != DOFACT ) *info = -1;
+    if ( options->Fact != DOFACT )
+        *info = -1;
     else if ( A->nrow != A->ncol || A->nrow < 0 ||
 	 (A->Stype != SLU_NC && A->Stype != SLU_NR) ||
-	 A->Dtype != SLU_Q || A->Mtype != SLU_GE )
-	*info = -2;
+	  A->Dtype != SLU_Q || A->Mtype != SLU_GE )
+	    *info = -2;
     else if ( B->ncol < 0 || Bstore->lda < SUPERLU_MAX(0, A->nrow) ||
 	B->Stype != SLU_DN || B->Dtype != SLU_Q || B->Mtype != SLU_GE )
-	*info = -7;
-    if ( *info != 0 ) {
-	i = -(*info);
-	input_error("qgssv", &i);
-	return;
+	    *info = -7;
+
+    if ( *info != 0 )
+    {
+	  i = -(*info);
+	  input_error("qgssv", &i);
+	  return;
     }
 
     utime = stat->utime;
