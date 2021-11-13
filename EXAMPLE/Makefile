@@ -52,6 +52,13 @@ SUPERLUEXM 	= superlu.o sp_ienv.o
 DITSOL	     	= ditersol.o dfgmr.o
 DITSOL1	     	= ditersol1.o dfgmr.o
 
+QLINEXM		= qlinsol.o
+QLINXEXM 	= qlinsolx.o
+QLINXEXM1 	= qlinsolx1.o
+QLINXEXM2 	= qlinsolx2.o
+QLINXEXM3 	= qlinsolx3.o
+
+
 CLINEXM 	= clinsol.o
 CLINEXM1 	= clinsol1.o
 CLINXEXM 	= clinsolx.o
@@ -71,12 +78,13 @@ ZITSOL	     	= zitersol.o zfgmr.o
 ZITSOL1	     	= zitersol1.o zfgmr.o
 
 
-all:    single double complex complex16
+all:    single double quad complex complex16
 
 single:    slinsol slinsol1 slinsolx slinsolx1 slinsolx2 slinsolx3 \
 		sitersol sitersol1
 double:    dlinsol dlinsol1 dlinsolx dlinsolx1 dlinsolx2 dlinsolx3 \
 		superlu ditersol ditersol1
+quad:      qlinsol qlinsolx qlinsolx1 qlinsolx2 qlinsolx3
 complex:   clinsol clinsol1 clinsolx clinsolx1 clinsolx2 clinsolx3 \
 		citersol citersol1
 complex16: zlinsol zlinsol1 zlinsolx zlinsolx1 zlinsolx2 zlinsolx3 \
@@ -132,6 +140,17 @@ ditersol: $(DITSOL) $(SUPERLULIB)
 
 ditersol1: $(DITSOL1) $(SUPERLULIB)
 	$(LOADER) $(LOADOPTS) $(DITSOL1) $(LIBS) -lm -o $@
+
+qlinsol: $(QLINEXM) $(SUPERLULIB)
+	$(LOADER) $(LOADOPTS) $(QLINEXM) $(LIBS) -lm -o $@
+qlinsolx: $(QLINXEXM) $(SUPERLULIB)
+	$(LOADER) $(LOADOPTS) $(QLINXEXM) $(LIBS) -lm -o $@
+qlinsolx1: $(QLINXEXM1) $(SUPERLULIB)
+	$(LOADER) $(LOADOPTS) $(QLINXEXM1) $(LIBS) -lm -o $@
+qlinsolx2: $(QLINXEXM2) $(SUPERLULIB)
+	$(LOADER) $(LOADOPTS) $(QLINXEXM2) $(LIBS) -lm -o $@
+qlinsolx3: $(QLINXEXM3) $(SUPERLULIB)
+	$(LOADER) $(LOADOPTS) $(QLINXEXM3) $(LIBS) -lm -o $@
 
 clinsol: $(CLINEXM) $(SUPERLULIB)
 	$(LOADER) $(LOADOPTS) $(CLINEXM) $(LIBS) -lm -o $@
